@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <map>
 
 unsigned long long int binaryDegree_RightToLeft(unsigned int x,unsigned int y,unsigned int m)
 {
@@ -46,43 +47,84 @@ unsigned int gen(int k)
     return num;
 }
 
-int kanon(unsigned int n)
+void kanon(unsigned int n, std::map<int, int> &rasl)
 {	
-	if(n==1)
-	{
-		return n;
+	int s=getI(n);		//s=getI()-степень двойки
+	if(s!=0)
+	{	
+		rasl[2]+=s;
+		n>>=s;
 	}
-	if((n&1)==0)
+	int i=3;
+	while(n>1)
 	{
-		//for(int i=0;i<getI(n);++i)
-		//{
-		//	std::cout<<2<<"*";
-		//}
-		std::cout<<2<<"*";
-		n>>=getI(n);
-	}
-	std::cout<<"n= "<<n<<std::endl;
-		for(int i=3;i<=sqrt(n);i+=2)
+		while(n%i==0)
 		{
-			//std::cout<<"Sqrt= "<<sqrt(n)<<std::endl;
-			//std::cout<<"n1= "<<n<<std::endl;
-			if((n%i)==0)
-			{
-				n/=i;
-				std::cout<<i<<"*";
-				//std::cout<<n/i<<std::endl;
-				kanon(n/i);
-			}	
+			rasl[i]++;
+			n/=i;
 		}
-	return n;
-}	
-
-int luka(unsigned int a, int t)
-{
+		i+=2;	
+	}
+	/*std::map<int, int>::iterator it;
+	std::cout<<"1";
+	for(it=rasl.begin();it!=rasl.end();++it)
+	{
+		std::cout<<"*"<<it->first<<"^"<<it->second;
+	}
+	std::cout<<std::endl;*/
+}
 	
+
+int luka(unsigned int n, int t)
+{
+	std::map<int, int> rasl;
+	kanon(n-1, rasl);
+	int flag;
+	for(int i=0;i<t;++i)
+	{
+		int a=2+rand()%(n-3);
+		if(binaryDegree_RightToLeft(a, (n-1),n)!=1)
+		{
+			return 0;
+		}
+		std::map<int, int>::iterator it;
+		for(it=rasl.begin();it!=rasl.end();++it)
+		{
+			if(binaryDegree_RightToLeft(a, (n-1)/(it->first), n)!=1)
+			{
+				flag=1;
+			}
+			else
+			{
+				flag=0;
+				break;
+			}
+		}
+		if(flag) return 1;
+	}
+	return 0;
+}
+
+unsigned test(int k)
+{
+	unsigned num;
+	do
+	{
+		num=gen(k);
+	}
+	while(luka(num,5)==0);
+	return num;
 }
 
 int main()
 {
-	kanon(222);
+	srand(time(0));
+	std::map<int, int> rasl;
+	for(int i=3;i<=32;++i)
+	{
+		std::cout<<i<<". "<<test(i)<<std::endl;
+	}
+	//std::cout<<luka(24, 5)<<std::endl;
+	
+	//kanon(255, rasl);
 }
