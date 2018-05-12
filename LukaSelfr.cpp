@@ -82,6 +82,7 @@ int luka(unsigned int n, int t)
 			if(binaryDegree_RightToLeft(a, (n-1),n)==1 && binaryDegree_RightToLeft(a, (n-1)/(it->first), n)!=1)
 			{
 				flag=1;
+				rasl.erase(it->first);
 			}
 			else 
 			{	
@@ -108,11 +109,12 @@ unsigned test(int k)
 int main()
 {
 	srand(time(0));
-	/*for(int i=3;i<=32;++i)
+	
+	for(int i=3;i<=32;++i)
 	{
 		std::cout<<i<<". "<<test(i)<<std::endl;
-	}*/
-	std::cout<<luka(133, 5)<<std::endl;
-	
-	//kanon(255, rasl);
+	}
+	//std::cout<<luka(133, 5)<<std::endl;
+	/*std::map<int, int> rasl;
+	kanon(4059876417, rasl);*/
 }
