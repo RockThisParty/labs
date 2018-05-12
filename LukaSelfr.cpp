@@ -65,13 +65,6 @@ void kanon(unsigned int n, std::map<int, int> &rasl)
 		}
 		i+=2;	
 	}
-	/*std::map<int, int>::iterator it;
-	std::cout<<"1";
-	for(it=rasl.begin();it!=rasl.end();++it)
-	{
-		std::cout<<"*"<<it->first<<"^"<<it->second;
-	}
-	std::cout<<std::endl;*/
 }
 	
 
@@ -83,9 +76,9 @@ int luka(unsigned int n, int t)
 	for(int i=0;i<t;++i)
 	{
 		std::map<int, int>::iterator it;
+		int a=2+rand()%(n-3);
 		for(it=rasl.begin();it!=rasl.end();++it)
 		{	
-			int a=2+rand()%(n-3);
 			if(binaryDegree_RightToLeft(a, (n-1),n)==1 && binaryDegree_RightToLeft(a, (n-1)/(it->first), n)!=1)
 			{
 				flag=1;
@@ -115,11 +108,11 @@ unsigned test(int k)
 int main()
 {
 	srand(time(0));
-	for(int i=3;i<=32;++i)
+	/*for(int i=3;i<=32;++i)
 	{
 		std::cout<<i<<". "<<test(i)<<std::endl;
-	}
-	//std::cout<<luka(19, 5)<<std::endl;
+	}*/
+	std::cout<<luka(133, 5)<<std::endl;
 	
 	//kanon(255, rasl);
 }
