@@ -28,7 +28,6 @@ unsigned int gordon()
   unsigned i0=1+rand()%7;
   //std::cout<<"i0= "<<i0<<std::endl;
   t<<=1;
-  t=i0;
   unsigned r=1;
   do {
     r+=t;
@@ -38,8 +37,7 @@ unsigned int gordon()
 	//std::cout<<"p0= "<<p0<<std::endl;
 	unsigned j0=1+rand()%7;
 	//std::cout<<"j0= "<<j0<<std::endl;
-  s=s<<j0;
-  s*=r;
+  s*=(r<<1);
   unsigned long long p=p0;
   do {
       p+=s;
